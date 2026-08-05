@@ -16,3 +16,9 @@ from mjlab.asset_zoo.robots.unitree_go1.go1_constants import (
 from mjlab.asset_zoo.robots.unitree_go1.go1_constants import (
   get_go1_robot_cfg as get_go1_robot_cfg,
 )
+from mjlab.asset_zoo.robots.soulmade_toto.toto_constants import (
+  TOTO_ACTION_SCALE as TOTO_ACTION_SCALE,
+)
+from mjlab.asset_zoo.robots.soulmade_toto.toto_constants import (
+  get_toto_robot_cfg as get_toto_robot_cfg,
+)
