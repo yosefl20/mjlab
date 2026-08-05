@@ -84,11 +84,11 @@ def apply_toto_profile(
       "base_lin_vel",
       observations["critic_base_lin_vel_noise"],
     )
-  if "phase_period" in observations:
-    period = float(observations["phase_period"])
-    cfg.observations["actor"].terms["phase"].params["period"] = period
-    if "foot_gait" in cfg.rewards:
-      cfg.rewards["foot_gait"].params["period"] = period
+  # if "phase_period" in observations:
+  #   period = float(observations["phase_period"])
+  #   cfg.observations["actor"].terms["phase"].params["period"] = period
+  #   if "foot_gait" in cfg.rewards:
+  #     cfg.rewards["foot_gait"].params["period"] = period
 
   events = data.get("events", {})
   if "reset_base" in events:

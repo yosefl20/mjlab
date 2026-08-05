@@ -140,10 +140,10 @@ def soulmade_toto_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     params={"sensor_name": self_collision_cfg.name, "force_threshold": 10.0},
   )
 
-  cfg.observations["actor"].terms["phase"].params["period"] = 0.52
-  cfg.rewards["foot_gait"].weight = 1.0
-  cfg.rewards["foot_gait"].params["period"] = 0.52
-  cfg.rewards["foot_gait"].params["threshold"] = 0.7
+  # cfg.observations["actor"].terms["phase"].params["period"] = 0.52
+  # cfg.rewards["foot_gait"].weight = 1.0
+  # cfg.rewards["foot_gait"].params["period"] = 0.52
+  # cfg.rewards["foot_gait"].params["threshold"] = 0.7
 
   cfg.rewards["air_time"].weight = 1.0
   cfg.rewards["air_time"].params["threshold_min"] = 0.15
