@@ -156,6 +156,8 @@ KNEES_BENT_KEYFRAME = EntityCfg.InitialStateCfg(
 
 FULL_COLLISION = CollisionCfg(
   geom_names_expr=(".*_collision",), # 匹配所有 class="collision" 的 geom
+  contype=1,
+  conaffinity=1,
   condim={".*_foot_collision": 3, ".*": 1}, # 脚踝 3D 接触，身体其他部分 1D 接触（防止穿透即可）
   priority={".*_foot_collision": 1},
   friction={".*_foot_collision": (0.8,)},
