@@ -1,0 +1,195 @@
+<mujoco model="toto">
+  <compiler angle="radian" meshdir="assets" autolimits="true" />
+
+  <default>
+    <default class="toto">
+      <default class="visual">
+        <geom group="2" type="mesh" density="0" material="silver" contype="0" conaffinity="0" />
+      </default>
+      <!-- <default class="collision">
+        <geom group="3" rgba=".2 .6 .2 .3" type="mesh" contype="1" conaffinity="1"/>
+      </default> -->
+      <default class="collision">
+        <geom type="capsule" rgba="1 0 0 .3" group="3" contype="1" conaffinity="1" />
+      </default>
+      <site group="5" rgba="1 0 0 1" />
+    </default>
+  </default>
+
+  <asset>
+    <material name="silver" rgba="0.7 0.7 0.7 1" />
+
+    <mesh name="base_link_visual" file="base_link_visual.stl" />
+    <mesh name="left_hip_yaw_link_visual" file="left_hip_yaw_link_visual.stl" />
+    <mesh name="left_hip_roll_link_visual" file="left_hip_roll_link_visual.stl" />
+    <mesh name="left_hip_pitch_link_visual" file="left_hip_pitch_link_visual.stl" />
+    <mesh name="left_knee_pitch_link_visual" file="left_knee_pitch_link_visual.stl" />
+    <mesh name="left_ankle_pitch_link_visual" file="left_ankle_pitch_link_visual.stl" />
+    <mesh name="right_hip_yaw_link_visual" file="right_hip_yaw_link_visual.stl" />
+    <mesh name="right_hip_roll_link_visual" file="right_hip_roll_link_visual.stl" />
+    <mesh name="right_hip_pitch_link_visual" file="right_hip_pitch_link_visual.stl" />
+    <mesh name="right_knee_pitch_link_visual" file="right_knee_pitch_link_visual.stl" />
+    <mesh name="right_ankle_pitch_link_visual" file="right_ankle_pitch_link_visual.stl" />
+    <mesh name="neck_2_link_visual" file="neck_2_link_visual.stl" />
+    <mesh name="neck_1_link_visual" file="neck_1_link_visual.stl" />
+    <mesh name="head_link_visual" file="head_link_visual.stl" />
+    <material name="base_link_mat" rgba="0.7294 0.7412 0.7137 1" specular="0" />
+    <material name="neck_2_link_mat" rgba="0.3333 0.3412 0.3255 1" specular="0" />
+    <material name="neck_1_link_mat" rgba="0.7569 0.4902 0.0667 1" specular="0" />
+    <material name="head_yaw_link_mat" rgba="0.7294 0.7412 0.7137 1" specular="0" />
+    <material name="left_hip_yaw_link_mat" rgba="0.702 0.702 0.702 1" specular="0" />
+    <material name="left_hip_roll_link_mat" rgba="0.7569 0.4902 0.0667 1" specular="0" />
+    <material name="left_hip_pitch_link_mat" rgba="0.3333 0.3412 0.3255 1" specular="0" />
+    <material name="left_knee_pitch_link_mat" rgba="0.7294 0.7412 0.7137 1" specular="0" />
+    <material name="left_ankle_pitch_link_mat" rgba="0.3333 0.3412 0.3255 1" specular="0" />
+    <material name="right_hip_yaw_link_mat" rgba="0.702 0.702 0.702 1" specular="0" />
+    <material name="right_hip_roll_link_mat" rgba="0.7569 0.4902 0.0667 1" specular="0" />
+    <material name="right_hip_pitch_link_mat" rgba="0.3333 0.3412 0.3255 1" specular="0" />
+    <material name="right_knee_pitch_link_mat" rgba="0.7294 0.7412 0.7137 1" specular="0" />
+    <material name="right_ankle_pitch_link_mat" rgba="0.3333 0.3412 0.3255 1" specular="0" />
+  </asset>
+
+  <worldbody>
+    <!-- 添加地面和灯光 -->
+    <!-- <geom name="floor" type="plane" size="20 20 0.05" pos="0 0 0" contype="1" conaffinity="1"
+    friction="1.0 0.005 0.0001" rgba="0.68 0.72 0.74 1"/> -->
+    <light name="key_light" pos="-0 -3 4" dir="0 0.7 -1" diffuse="0.8 0.8 0.8" castshadow="true" />
+    <light name="fill_light" pos="-3 2 3" dir="0.6 -0.4 -1" diffuse="0.35 0.35 0.35"
+      castshadow="false" />
+    <light name="spotlight" mode="targetbodycom" target="base_link" pos="0 -1 2" />
+
+    <body name="base_link" pos="0 0 0.17" childclass="toto">
+      <freejoint name="floating_base_joint" />
+      <inertial pos="-0.00488 0 0.12124" mass="2.279" diaginertia="0.01381 0.04939 0.04675" />
+      <geom class="visual" mesh="base_link_visual" quat="0.7071 0 0 0.7071" />
+      <site name="imu" size="0.01" pos="-0.07834 0 0.0863" />
+
+      <body name="neck_2_link" pos="0.09406 -0.0249 0.21124" euler="0 -0.5 0">
+        <inertial pos="-0.05141 0 0.09253" mass="0.369" diaginertia="0.00081 0.00125 0.00066" />
+        <geom class="visual" mesh="neck_2_link_visual" quat="0.7071 0 0 0.7071" />
+        <body name="neck_1_link" pos="-0.0775 0.049 0.12134" euler="0 0.5 0">
+          <inertial pos="-0.00024 0 0.05643" mass="0.336" diaginertia="0.00036 0.00032 0.00016" />
+          <geom class="visual" mesh="neck_1_link_visual" quat="0.7071 0 0 0.7071" />
+          <body name="head_yaw_link" pos="-0.00018 -0.02413 0.10083">
+            <inertial pos="0.02149 0 -0.01691" mass="0.547" diaginertia="0.00271 0.00346 0.00563" />
+            <geom class="visual" mesh="head_link_visual" quat="0.7071 0 0 0.7071" />
+          </body>
+        </body>
+      </body>
+
+      <body name="left_hip_yaw_link" pos="0.0109 0.04518 0.14309">
+        <inertial pos="-0.01055 0 -0.05487" mass="0.397" diaginertia="0.00035 0.00031 0.00021" />
+        <joint name="left_hip_yaw_link_joint" axis="0 0 1" range="-0.25 0.25" />
+        <geom class="visual" mesh="left_hip_yaw_link_visual" quat="0.7071 0 0 0.7071" />
+        <body name="left_hip_roll_link" pos="0.01284 0.00001 -0.05962">
+          <inertial pos="-0.00656 0 -0.00065" mass="0.0263" diaginertia="0.00002 0.00001 0.00002" />
+          <joint name="left_hip_roll_link_joint" axis="1 0 0" range="-0.52333 0.34889" />
+          <geom class="visual" mesh="left_hip_roll_link_visual" quat="0.7071 0 0 0.7071" />
+          <body name="left_hip_pitch_link" pos="-0.01527 0.08544 -0.00091">
+            <inertial pos="-0.04484 0 -0.03898" mass="0.805" diaginertia="0.00140 0.00249 0.00136" />
+            <joint name="left_hip_pitch_link_joint" axis="0 1 0" range="-1.83167 0.785" />
+            <geom class="visual" mesh="left_hip_pitch_link_visual" quat="0.7071 0 0 0.7071" />
+            <body name="left_knee_pitch_link" pos="-0.0852 0 -0.08514">
+              <inertial pos="0.05821 0 -0.05894" mass="0.4" diaginertia="0.00030 0.00050 0.00032" />
+              <joint name="left_knee_pitch_link_joint" axis="0 1 0" range="-0.52333 2.26778" />
+              <geom class="visual" mesh="left_knee_pitch_link_visual" quat="0.7071 0 0 0.7071" />
+              <body name="left_ankle_pitch_link" pos="0.07069 0.032 -0.0704">
+                <inertial pos="0.03421 0 -0.04009" mass="0.1" diaginertia="0.00005 0.00020 0.00018" />
+                <joint name="left_ankle_pitch_link_joint" axis="0 1 0" range="-1.74444 0.95944" />
+                <geom class="visual" mesh="left_ankle_pitch_link_visual" quat="0.7071 0 0 0.7071" />
+                <geom class="collision" name="left_foot_collision_1" size="0.005"
+                  fromto="-0.039 -0.015364 -0.063569 0.109 -0.015364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_2" size="0.005"
+                  fromto="-0.039 -0.019364 -0.063569 0.109 -0.019364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_3" size="0.005"
+                  fromto="-0.039 -0.023364 -0.063569 0.109 -0.023364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_4" size="0.005"
+                  fromto="-0.039 -0.027364 -0.063569 0.109 -0.027364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_5" size="0.005"
+                  fromto="-0.039 -0.031364 -0.063569 0.109 -0.031364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_6" size="0.005"
+                  fromto="-0.039 -0.033664 -0.063569 0.109 -0.033664 -0.063569" />
+                <geom class="collision" name="left_foot_collision_7" size="0.005"
+                  fromto="-0.039 -0.011364 -0.063569 0.109 -0.011364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_8" size="0.005"
+                  fromto="-0.039 -0.007364 -0.063569 0.109 -0.007364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_9" size="0.005"
+                  fromto="-0.039 -0.003364 -0.063569 0.109 -0.003364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_10" size="0.005"
+                  fromto="-0.039 0.001364 -0.063569 0.109 0.001364 -0.063569" />
+                <geom class="collision" name="left_foot_collision_11" size="0.005"
+                  fromto="-0.039 0.003364 -0.063569 0.109 0.003364 -0.063569" />
+
+                <site name="left_foot_site" rgba="1 0 0 1" pos="0 -0.02 -0.069" />
+
+
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="right_hip_yaw_link" pos="0.0109 -0.04518 0.14309">
+        <inertial pos="-0.01055 0 -0.05487" mass="0.397" diaginertia="0.00035 0.00031 0.00021" />
+        <joint name="right_hip_yaw_link_joint" axis="0 0 1" range="-0.25 0.25" />
+        <geom class="visual" mesh="right_hip_yaw_link_visual" quat="0.7071 0 0 0.7071" />
+        <body name="right_hip_roll_link" pos="0.01284 -0.00001 -0.05962">
+          <inertial pos="-0.00656 0 -0.00065" mass="0.0263" diaginertia="0.00002 0.00001 0.00002" />
+          <joint name="right_hip_roll_link_joint" axis="1 0 0" range="-0.34889 0.52333" />
+          <geom class="visual" mesh="right_hip_roll_link_visual" quat="0.7071 0 0 0.7071" />
+          <body name="right_hip_pitch_link" pos="-0.01527 -0.08544 -0.00091">
+            <inertial pos="-0.04484 0 -0.03898" mass="0.805" diaginertia="0.00140 0.00249 0.00136" />
+            <joint name="right_hip_pitch_link_joint" axis="0 1 0" range="-1.83167 0.785" />
+            <geom class="visual" mesh="right_hip_pitch_link_visual" quat="0.7071 0 0 0.7071" />
+            <body name="right_knee_pitch_link" pos="-0.0852 0 -0.08514">
+              <inertial pos="0.05821 0 -0.05894" mass="0.4" diaginertia="0.00030 0.00050 0.00032" />
+              <joint name="right_knee_pitch_link_joint" axis="0 1 0" range="-0.52333 2.26778" />
+              <geom class="visual" mesh="right_knee_pitch_link_visual" quat="0.7071 0 0 0.7071" />
+              <body name="right_ankle_pitch_link" pos="0.07069 -0.032 -0.0704">
+                <inertial pos="0.03421 0 -0.04009" mass="0.1" diaginertia="0.00005 0.00020 0.00018" />
+                <joint name="right_ankle_pitch_link_joint" axis="0 1 0" range="-1.74444 0.95944" />
+                <geom class="visual" mesh="right_ankle_pitch_link_visual" quat="0.7071 0 0 0.7071" />
+                <geom class="collision" name="right_foot_collision_1" size="0.005"
+                  fromto="-0.039 0.015364 -0.063569 0.109 0.015364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_2" size="0.005"
+                  fromto="-0.039 0.019364 -0.063569 0.109 0.019364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_3" size="0.005"
+                  fromto="-0.039 0.023364 -0.063569 0.109 0.023364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_4" size="0.005"
+                  fromto="-0.039 0.027364 -0.063569 0.109 0.027364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_5" size="0.005"
+                  fromto="-0.039 0.031364 -0.063569 0.109 0.031364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_6" size="0.005"
+                  fromto="-0.039 0.033664 -0.063569 0.109 0.033664 -0.063569" />
+                <geom class="collision" name="right_foot_collision_7" size="0.005"
+                  fromto="-0.039 0.011364 -0.063569 0.109 0.011364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_8" size="0.005"
+                  fromto="-0.039 0.007364 -0.063569 0.109 0.007364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_9" size="0.005"
+                  fromto="-0.039 0.003364 -0.063569 0.109 0.003364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_10" size="0.005"
+                  fromto="-0.039 -0.001364 -0.063569 0.109 -0.001364 -0.063569" />
+                <geom class="collision" name="right_foot_collision_11" size="0.005"
+                  fromto="-0.039 -0.003364 -0.063569 0.109 -0.003364 -0.063569" />
+                <site name="right_foot_site" rgba="1 0 0 1" pos="0 0.02 -0.069" />
+
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <geom class="collision" name="base_link_collision" size="0.11"
+        fromto="0.08 0 0.12 -0.09 0 0.12" />
+    </body>
+  </worldbody>
+  <contact>
+    <exclude body1="base_link" body2="left_hip_yaw_link" />
+    <exclude body1="base_link" body2="right_hip_yaw_link" />
+  </contact>
+  <sensor>
+    <gyro name="imu_ang_vel" site="imu" />
+    <velocimeter name="imu_lin_vel" site="imu" />
+    <accelerometer name="imu_lin_acc" site="imu" />
+    <subtreeangmom name="root_angmom" body="base_link" />
+  </sensor>
+</mujoco>

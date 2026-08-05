@@ -1,0 +1,130 @@
+observations:
+  base_ang_vel_noise: [-0.2, 0.2]
+  projected_gravity_noise: [-0.05, 0.05]
+  joint_pos_noise: [-0.01, 0.01]
+  joint_vel_noise: [-0.5, 0.5]
+  height_scan_noise: [-0.05, 0.05]
+  critic_base_lin_vel_noise: [-0.5, 0.5]
+  phase_period: 0.45
+
+events:
+  reset_base:
+    pose_range:
+      x: [-0.5, 0.5]
+      y: [-0.5, 0.5]
+      z: [0.01, 0.03]
+      yaw: [-3.14, 3.14]
+    velocity_range: {}
+  reset_robot_joints:
+    position_range: [-0.05, 0.05]
+    velocity_range: [-0.1, 0.1]
+  encoder_bias: [-0.01, 0.01]
+  foot_friction: [0.3, 1.8]
+  base_com:
+    x: [-0.02, 0.02]
+    y: [-0.02, 0.02]
+    z: [-0.02, 0.02]
+  push_robot:
+    interval_range_s: [1.0, 3.0]
+    velocity_range:
+      x: [-0.3, 0.3]
+      y: [-0.3, 0.3]
+      z: [-0.4, 0.4]
+      roll: [-0.3, 0.3]
+      pitch: [-0.3, 0.3]
+      yaw: [-0.5, 0.5]
+
+commands:
+  resampling_time_range: [3.0, 8.0]
+  rel_standing_envs: 0.05
+  rel_heading_envs: 0.3
+  rel_forward_envs: 0.3
+  heading_control_stiffness: 0.7
+  lin_vel_x: [-0.5, 0.5]
+  lin_vel_y: [-0.35, 0.35]
+  ang_vel_z: [-0.4, 0.4]
+  velocity_stages:
+    - step: 0
+      lin_vel_x: [-0.15, 0.15]
+      lin_vel_y: [-0.15, 0.15]
+      ang_vel_z: [-0.15, 0.15]
+    - step: 48000
+      lin_vel_x: [-0.3, 0.3]
+      lin_vel_y: [-0.3, 0.3]
+      ang_vel_z: [-0.3, 0.3]
+    - step: 120000
+      lin_vel_x: [-0.5, 0.5]
+      lin_vel_y: [-0.35, 0.35]
+      ang_vel_z: [-0.4, 0.4]
+
+rewards:
+  weights:
+    track_linear_velocity: 2.0
+    track_angular_velocity: 1.5
+    upright: 1.0
+    pose: 0.85
+    body_ang_vel: -0.05
+    angular_momentum: -0.025
+    is_terminated: -200.0
+    joint_acc_l2: -5.0e-7
+    joint_pos_limits: -10.0
+    action_rate_l2: -0.05
+    air_time: 0.8
+    foot_gait: 0.85
+    foot_clearance: -0.5
+    foot_slip: -0.25
+    foot_swing_height: 0
+    soft_landing: -2.0e-3
+    stand_still: -1.0
+    feet_parallel: 0.3
+    self_collisions: -1.0
+  params:
+    track_linear_velocity:
+      std: 0.4
+    track_angular_velocity:
+      std: 0.5
+    upright:
+      std: 0.4472135954999579
+    pose:
+      std_standing:
+        ".*": 0.02
+      std_walking:
+        ".*hip_yaw.*": 0.05
+        ".*hip_roll.*": 0.12
+        ".*hip_pitch.*": 0.25
+        ".*knee.*": 0.6
+        ".*ankle_pitch.*": 0.35
+      std_running:
+        ".*hip_yaw.*": 0.02
+        ".*hip_roll.*": 0.02
+        ".*hip_pitch.*": 0.02
+        ".*knee.*": 0.02
+        ".*ankle_pitch.*": 0.02
+      walking_threshold: 0.05
+      running_threshold: 1.5
+    self_collisions:
+      force_threshold: 10.0
+    air_time:
+      threshold_min: 0.09
+      threshold_max: 0.22
+      command_threshold: 0.05
+    foot_gait:
+      period: 0.45
+      offset: [0.0, 0.5]
+      threshold: 0.65
+      command_threshold: 0.05
+    foot_clearance:
+      target_height: 0.05
+      command_threshold: 0.05
+    foot_slip:
+      command_threshold: 0.05
+    foot_swing_height:
+      target_height: 0.05
+      command_threshold: 0.05
+    soft_landing:
+      command_threshold: 0.05
+    stand_still:
+      command_threshold: 0.05
+    feet_parallel:
+      command_threshold: 0.05
+      penalty_weight: 15.0
