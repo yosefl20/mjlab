@@ -111,7 +111,7 @@ def make_velocity_env_cfg() -> ManagerBasedRlEnvCfg:
     "base_lin_vel": ObservationTermCfg(
       func=mdp.builtin_sensor,
       params={"sensor_name": "robot/imu_lin_vel"},
-      # noise=Unoise(n_min=-0.5, n_max=0.5),
+      noise=Unoise(n_min=-0.5, n_max=0.5),
     ),
     "joint_pos": ObservationTermCfg(func=mdp.joint_pos_rel),
     "height_scan": ObservationTermCfg(
