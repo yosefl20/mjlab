@@ -2,7 +2,7 @@ runner:
   experiment_name: toto_velocity
   save_interval: 200
   num_steps_per_env: 24
-  max_iterations: 20000
+  max_iterations: 30000
   resume: false
   load_run: .*
   load_checkpoint: model_.*.pt

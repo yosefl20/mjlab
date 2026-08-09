@@ -187,7 +187,7 @@ def soulmade_toto_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
 
 
 def soulmade_toto_flat_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
-  """Create Unitree G1 flat terrain velocity configuration."""
+  """Create SoulMade TOTO flat terrain velocity configuration."""
   cfg =soulmade_toto_rough_env_cfg(play=play)
 
   cfg.sim.njmax = 300

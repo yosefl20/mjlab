@@ -45,7 +45,7 @@ def solumade_toto_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
     experiment_name="toto_velocity",
     save_interval=200,
     num_steps_per_env=24,
-    max_iterations=10_000,
+    max_iterations=30_000,
   )
   apply_toto_agent_profile(cfg)
   return cfg
